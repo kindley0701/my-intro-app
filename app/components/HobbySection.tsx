@@ -9,6 +9,7 @@ interface HobbySectionProps {
   text: string;
   background: string;
   index: number;
+  halfWidth?: boolean;
 }
 
 export default function HobbySection({
@@ -17,10 +18,13 @@ export default function HobbySection({
   text,
   background,
   index,
+  halfWidth = false,
 }: HobbySectionProps) {
   const isEven = index % 2 === 0;
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+
+  const isVideo = background.endsWith('.mp4') || background.endsWith('.webm') || background.endsWith('.ogg');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,35 +48,56 @@ export default function HobbySection({
     };
   }, []);
 
+  const longestLineLength = Math.max(...text.split('\n').map(line => line.length));
+  const contentWidth = `w-[${longestLineLength * 20}px]`;
+
   return (
-    <section
-      id={id}
-      ref={ref}
-      className={`relative my-16 mx-auto h-[500px] max-w-7xl overflow-hidden rounded-2xl transition-opacity duration-700 ease-out ${
-        isVisible ? 'animate-fade-up' : 'opacity-0'
-      }`}
-    >
-      <Image
-        src={background}
-        alt={title}
-        fill
-        className="object-cover brightness-75"
-        priority
-      />
-      <div
-        className={`absolute inset-0 flex items-center px-10 ${
-          isEven ? 'justify-start' : 'justify-end'
+    <div className={`${halfWidth ? 'w-full sm:w-44/100' : 'w-full'}`}> {/* 強制ブロック化で整列制御 */}
+      <section
+        id={id}
+        ref={ref}
+        className={`relative my-8 mx-auto h-[500px] px-4 max-w-8/10 overflow-hidden rounded-2xl transition-opacity duration-700 ease-out ${
+          isVisible ? 'animate-fade-up' : 'opacity-0'
         }`}
       >
+        {isVideo ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover brightness-75"
+          >
+            <source src={background} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <Image
+            src={background}
+            alt={title}
+            fill
+            className="object-cover brightness-75"
+            priority
+          />
+        )}
         <div
-          className={`bg-black/70 text-white p-8 max-w-md rounded-lg ${
-            isEven ? 'text-left' : 'text-right'
+          className={`absolute inset-0 flex items-center px-10 ${
+            isEven ? 'justify-start' : 'justify-end'
           }`}
         >
-          <h2 className="text-3xl font-bold mb-2">{title}</h2>
-          <p className="text-lg">{text}</p>
+          <div
+            className={`bg-black/70 text-white p-8 rounded-lg ${contentWidth} ${
+              isEven ? 'text-left' : 'text-right'
+            }`}
+          >
+            <h2 className="text-3xl font-bold mb-2">{title}</h2>
+            <p className="text-lg whitespace-pre-line">
+              {text.replace(/\\n/g, '\n')}
+            </p>
+            <p className="text-sm mt-2 text-gray-400">Debug: halfWidth = {String(halfWidth)}</p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

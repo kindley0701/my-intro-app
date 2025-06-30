@@ -18,6 +18,7 @@ export default function HomePage() {
         text={hobby.text}
         background={hobby.background}
         index={index} // ← これを追加！
+        halfWidth={hobby.halfWidth} // ← ここが重要！！
       />
     ))}
     </>
