@@ -52,11 +52,11 @@ export default function HobbySection({
   const contentWidth = `w-[${longestLineLength * 20}px]`;
 
   return (
-    <div className={`${halfWidth ? 'w-full sm:w-44/100' : 'w-full'}`}> {/* 強制ブロック化で整列制御 */}
+    <div className={`${halfWidth ? 'w-full lg:w-48/100' : 'w-full lg:w-97/100'}`}> {/* 強制ブロック化で整列制御 */}
       <section
         id={id}
         ref={ref}
-        className={`relative my-8 mx-auto h-[500px] px-4 max-w-8/10 overflow-hidden rounded-2xl transition-opacity duration-700 ease-out ${
+        className={`relative my-1 mx-auto h-[500px] px-4 overflow-hidden rounded-2xl transition-opacity duration-700 ease-out ${
           isVisible ? 'animate-fade-up' : 'opacity-0'
         }`}
       >
@@ -94,7 +94,7 @@ export default function HobbySection({
             <p className="text-lg whitespace-pre-line">
               {text.replace(/\\n/g, '\n')}
             </p>
-            <p className="text-sm mt-2 text-gray-400">Debug: halfWidth = {String(halfWidth)}</p>
+            {/* <p className="text-sm mt-2 text-gray-400">Debug: halfWidth = {String(halfWidth)}</p> */}
           </div>
         </div>
       </section>

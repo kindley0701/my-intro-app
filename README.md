@@ -1,7 +1,4 @@
 メモ
-・ハーフサイズのものを横並びにできたが、無理やりすぎる
-・ハーフサイズのものは左側が左寄せ、右側が右寄せにしたい
-・紹介文の、。有り無しが統一されていない
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
