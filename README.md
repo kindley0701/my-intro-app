@@ -1,4 +1,7 @@
 メモ
+・ログインしているかどうかの判別方法がない
+・ログアウト方法がない
+・ログインしている場合はログインページをスキップしたい
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
