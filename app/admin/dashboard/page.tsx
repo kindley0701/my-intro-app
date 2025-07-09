@@ -13,7 +13,6 @@ export default async function AdminDashboardPage() {
   return (
     <div>
       <h1>管理者ダッシュボード</h1>
-      <p>ログイン中のユーザー: {session.user?.username}</p>
     </div>
   );
 }
