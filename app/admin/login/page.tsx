@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 export default function AdminLoginPage() {
   const [username, setUsername] = useState('');
@@ -12,17 +13,16 @@ export default function AdminLoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch('/api/admin/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
+    const res = await signIn('credentials', {
+      redirect: false,
+      username,
+      password,
     });
 
-    const data = await res.json();
-    if (data.success) {
+    if (res?.ok) {
       router.push('/admin/dashboard');
     } else {
-      setError(data.message || 'ログイン失敗');
+      setError('ログインに失敗しました');
     }
   };
 

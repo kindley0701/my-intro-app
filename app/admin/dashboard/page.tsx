@@ -1,7 +1,19 @@
-export default function AdminDashboard() {
+// app/admin/dashboard/page.tsx
+
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+
+export default async function AdminDashboardPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return <p>ログインしていません</p>;
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1 className="text-3xl font-bold">管理者ダッシュボード</h1>
+    <div>
+      <h1>管理者ダッシュボード</h1>
+      <p>ログイン中のユーザー: {session.user?.username}</p>
     </div>
   );
 }
