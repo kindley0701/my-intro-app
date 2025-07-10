@@ -1,5 +1,10 @@
 メモ
-・ログイン機能自体は完了
+・趣味カードのデータ化を行いたい
+・管理者権限から本文や画像の差し替えを行えるようにしたい
+・最終的に画像は膨大な量にならないので、アプリ内ローカルに保存する（public/hobby内に保存するように変更したい）
+・編集を行う際、カードのプレビューを表示したい。
+・画像の表示範囲を選択できるようなUIを作成したい。
+・全カードのレイアウトを変更できるUIの作成も行いたい。
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 

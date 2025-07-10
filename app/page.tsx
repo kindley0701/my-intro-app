@@ -1,17 +1,23 @@
-import Hero from './components/Hero';
-import About from './components/About'; // ← 追加
-import Sidebar from './components/Sidebar';
+import { PrismaClient } from '@prisma/client';
 import HobbySection from './components/HobbySection';
-import { hobbies } from './data/hobbies';
+import Hero from './components/Hero';
+import About from './components/About';
+import Sidebar from './components/Sidebar';
 
-export default function HomePage() {
+const prisma = new PrismaClient();
+
+export default async function HomePage() {
+  const hobbies = await prisma.hobby.findMany({
+    orderBy: { order: 'asc' }, // 表示順に並べる
+  });
+
   let halfIndex = 0;
   let fullIndex = 0;
 
   return (
     <>
       <Hero />
-      <About /> {/* ← Heroの直後に追加 */}
+      <About />
       <Sidebar />
       <div className="w-full lg:px-40 md:px-20 py-10">
         <div className="flex flex-wrap justify-center items-start gap-4">
@@ -24,12 +30,16 @@ export default function HomePage() {
             return (
               <HobbySection
                 key={hobby.id}
-                id={hobby.id}
+                id={String(hobby.id)}
                 title={hobby.title}
                 text={hobby.text}
-                background={hobby.background}
-                index={isLeft ? 0 : 1} // 0: 左寄せ, 1: 右寄せ
+                imageUrl={hobby.imageUrl}
+                index={isLeft ? 0 : 1}
                 halfWidth={hobby.halfWidth}
+                cropCenterX={hobby.cropCenterX}
+                cropCenterY={hobby.cropCenterY}
+                cropWidth={hobby.cropWidth}
+                cropHeight={hobby.cropHeight}
               />
             );
           })}

@@ -7,24 +7,32 @@ interface HobbySectionProps {
   id: string;
   title: string;
   text: string;
-  background: string;
+  imageUrl: string;
   index: number;
   halfWidth?: boolean;
+  cropCenterX: number;
+  cropCenterY: number;
+  cropWidth: number;
+  cropHeight: number;
 }
 
 export default function HobbySection({
   id,
   title,
   text,
-  background,
+  imageUrl,
   index,
   halfWidth = false,
+  cropCenterX,
+  cropCenterY,
+  cropWidth,
+  cropHeight,
 }: HobbySectionProps) {
   const isEven = index % 2 === 0;
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  const isVideo = background.endsWith('.mp4') || background.endsWith('.webm') || background.endsWith('.ogg');
+  const isVideo = imageUrl.endsWith('.mp4') || imageUrl.endsWith('.webm') || imageUrl.endsWith('.ogg');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,8 +59,11 @@ export default function HobbySection({
   const longestLineLength = Math.max(...text.split('\n').map(line => line.length));
   const contentWidth = `w-[${longestLineLength * 20}px]`;
 
+  // トリミング情報を元にオブジェクトポジションを計算
+  const objectPosition = `${cropCenterX}% ${cropCenterY}%`;
+
   return (
-    <div className={`${halfWidth ? 'w-full lg:w-48/100' : 'w-full lg:w-97/100'}`}> {/* 強制ブロック化で整列制御 */}
+    <div className={`${halfWidth ? 'w-full lg:w-48/100' : 'w-full lg:w-97/100'}`}>
       <section
         id={id}
         ref={ref}
@@ -67,17 +78,19 @@ export default function HobbySection({
             muted
             playsInline
             className="absolute inset-0 w-full h-full object-cover brightness-75"
+            style={{ objectPosition }}
           >
-            <source src={background} type="video/mp4" />
+            <source src={imageUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         ) : (
           <Image
-            src={background}
+            src={imageUrl}
             alt={title}
             fill
             className="object-cover brightness-75"
             priority
+            style={{ objectPosition }}
           />
         )}
         <div
@@ -94,7 +107,6 @@ export default function HobbySection({
             <p className="text-lg whitespace-pre-line">
               {text.replace(/\\n/g, '\n')}
             </p>
-            {/* <p className="text-sm mt-2 text-gray-400">Debug: halfWidth = {String(halfWidth)}</p> */}
           </div>
         </div>
       </section>

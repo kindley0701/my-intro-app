@@ -15,3 +15,18 @@ model Admin {
   name String @unique
   password String // ハッシュ化されたパスワードを保存
 }
+
+model Hobby {
+  id          Int     @id @default(autoincrement())
+  title       String  @unique
+  text        String
+  imageUrl    String
+  cropCenterX Int     // トリミング中心X
+  cropCenterY Int     // トリミング中心Y
+  cropWidth   Int     // トリミング幅
+  cropHeight  Int     // トリミング高さ
+  order       Int
+  halfWidth   Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
