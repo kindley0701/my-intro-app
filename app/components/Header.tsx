@@ -10,7 +10,7 @@ export default function Header() {
       <h1 className="text-white text-xl font-bold">My Portfolio</h1>
       {session?.user && (
         <div className="flex items-center gap-4">
-          <span className="text-white">ログイン中: {session.user.username}</span>
+          <span className="text-white">ログイン中: {session.user.name}</span>
           <button onClick={() => signOut()} className="text-white underline">
             ログアウト
           </button>

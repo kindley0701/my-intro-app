@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 
 export default function AdminLoginPage() {
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
@@ -15,7 +15,7 @@ export default function AdminLoginPage() {
 
     const res = await signIn('credentials', {
       redirect: false,
-      username,
+      name,
       password,
     });
 
@@ -35,8 +35,8 @@ export default function AdminLoginPage() {
           type="text"
           placeholder="ユーザー名"
           className="w-full p-2 border mb-3 text-black"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           type="password"

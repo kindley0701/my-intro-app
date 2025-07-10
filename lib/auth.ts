@@ -13,14 +13,14 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { label: 'Username', type: 'text' },
+        name: { label: 'name', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
         if (!credentials) return null;
 
         const admin = await prisma.admin.findUnique({
-          where: { username: credentials.username },
+          where: { name: credentials.name },
         });
 
         if (!admin) return null;
@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
 
         return {
           id: admin.id.toString(),
-          username: admin.username,
+          name: admin.name,
         };
       },
     }),
@@ -38,12 +38,12 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }: { token: any; user?: any }) {
       if (user) {
-        token.username = user.username;
+        token.name = user.name;
       }
       return token;
     },
     async session({ session, token }: { session: any; token: any }) {
-      session.user.username = token.username;
+      session.user.name = token.name;
       return session;
     },
   },
