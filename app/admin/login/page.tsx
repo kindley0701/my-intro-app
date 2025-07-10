@@ -1,14 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 
 export default function AdminLoginPage() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const { data: session, status } = useSession();
   const router = useRouter();
+
+  // すでにログイン済みならダッシュボードへリダイレクト
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.replace('/admin/dashboard');
+    }
+  }, [status, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,6 +34,11 @@ export default function AdminLoginPage() {
       setError('ログインに失敗しました');
     }
   };
+
+  // セッション確認中は何も表示しない
+  if (status === 'loading' || status === 'authenticated') {
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center">

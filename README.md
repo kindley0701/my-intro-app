@@ -1,7 +1,5 @@
 メモ
 ・ログイン機能自体は完了
-・ログインしている場合はログインページをスキップしたい
-・開発用に管理者ログインボタンを表示したい
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
