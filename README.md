@@ -6,6 +6,11 @@
 ・画像の表示範囲を選択できるようなUIを作成したい。
 ・全カードのレイアウトを変更できるUIの作成も行いたい。
 
+・一旦トリミングUIの作成は行った。
+・四角い枠があり、表示する範囲を明るくし、表示しない範囲はグレーアウトしたい。
+・ドラッグできるようにしたい
+・HobbySectionの変更も必要
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
